@@ -1,3 +1,5 @@
+from ast import Try
+from urllib import request
 from rest_framework import status
 import requests
 from rest_framework.response import Response
@@ -8,23 +10,30 @@ from rest_framework.decorators import api_view
 from API.serializers import ChisteSerializer
 #from Chistes_API.API import serializers
 #from Chistes_API.API import serializers
+#from Chistes_API.API import serializers
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 
-def chistes_list(request, pk):
-    if(id):
-        r = requests.get('https://api.chucknorris.io/jokes/random')
-        return HttpResponse(r)
+def chistes_Chuck(request, pk):
+    if(pk):
+        response = requests.get('https://api.chucknorris.io/jokes/random')
+        return HttpResponse(response)
+
 
 
 class ChistesView(APIView):
-    def get (self,request):
-        obj = Chistes.objects.all()
-        serializer = ChisteSerializer(obj, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def get (self,request,pk):
+        if(pk>0):
+            obj = Chistes.objects.filter(pk=pk).values()
+            serializer = ChisteSerializer(obj, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else: 
+            mensaje = {"joke not found"}
+            return Response(mensaje, status=status.HTTP_404_NOT_FOUND)
 
-    def post (self,request):    
+
+    def post (self,request,pk):    
         serializer = ChisteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -32,6 +41,30 @@ class ChistesView(APIView):
         return  Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
 
 
+    def put (seld,request, pk):
+        try:
+            obj = Chistes.objects.get(pk=pk)
+        except Chistes.DoesNotExist:
+            mensaje = {"Not found error"}
+            return Response(mensaje, status=status.HTTP_404_NOT_FOUND)
+        serializer = ChisteSerializer(obj,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_205_RESET_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)           
+        
+
+
+
+    def delete (self,request,pk):
+        try:
+            obj = Chistes.objects.get(pk=pk)
+        except Chistes.DoesNotExist:
+            mensaje = {"Joke not found"}
+            return Response(mensaje, status=status.HTTP_404_NOT_FOUND)
+        obj.delete()
+        return Response({"Joke delete"}, status=status.HTTP_204_NO_CONTENT)        
+      
 
 
 
@@ -40,7 +73,45 @@ class ChistesView(APIView):
 
 
 
-    '''try:
+
+
+
+
+
+'''obj = Chistes.objects.filter(pk=pk).values()
+        serializer = ChisteSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)'''
+
+
+
+
+
+
+
+'''try:
+            obj = Chistes.objects.get(pk=pk)
+
+        except Chistes.DoesNotExist:
+             mensaje = {'not found error'}
+             return Response(mensaje, status=status.HTTP_404_NOT_FOUND)
+        serializer = ChisteSerializer(obj, dara=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)'''
+
+
+
+
+
+
+
+
+
+'''try:
         chistes = Chistes.objects.get(pk=pk)
     except Chistes.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)    
@@ -64,7 +135,7 @@ class ChistesView(APIView):
         #serializer = ChisteSerializer(chistes)
         #return Response(serializer.data)
 
-    '''elif request.method == 'PUT':
+'''elif request.method == 'PUT':
         serializer = ChisteSerializer(chistes, data=request.data)
         if serializer.is_valid():
             serializer.save()
