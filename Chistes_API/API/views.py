@@ -1,5 +1,3 @@
-from ast import Try
-from urllib import request
 from rest_framework import status
 import requests
 from rest_framework.response import Response
@@ -8,9 +6,7 @@ from API.models import Chistes
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from API.serializers import ChisteSerializer
-#from Chistes_API.API import serializers
-#from Chistes_API.API import serializers
-#from Chistes_API.API import serializers
+
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
@@ -53,7 +49,6 @@ class ChistesView(APIView):
             return Response(serializer.data, status=status.HTTP_205_RESET_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)           
         
-
 
 
     def delete (self,request,pk):
