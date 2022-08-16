@@ -25,9 +25,7 @@ class ChistesView(APIView):
             obj = Chistes.objects.filter(pk=pk).values()
             serializer = ChisteSerializer(obj, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        else: 
-            mensaje = {"joke not found"}
-            return Response(mensaje, status=status.HTTP_404_NOT_FOUND)
+        
 
 
     def post (self,request,pk):    
