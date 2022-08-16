@@ -14,7 +14,6 @@ from API.serializers import ChisteSerializer
 def chistes_Chuck(request, pk):
     if(pk):
         response = requests.get('https://api.chucknorris.io/jokes/random')
-        print(response.json())
         return Response (response.json())
         
 
@@ -75,30 +74,6 @@ class ChistesView(APIView):
 
 
 
-'''obj = Chistes.objects.filter(pk=pk).values()
-        serializer = ChisteSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)'''
-
-
-
-
-
-
-
-'''try:
-            obj = Chistes.objects.get(pk=pk)
-
-        except Chistes.DoesNotExist:
-             mensaje = {'not found error'}
-             return Response(mensaje, status=status.HTTP_404_NOT_FOUND)
-        serializer = ChisteSerializer(obj, dara=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)'''
 
 
 
@@ -107,52 +82,13 @@ class ChistesView(APIView):
 
 
 
-
-'''try:
-        chistes = Chistes.objects.get(pk=pk)
-    except Chistes.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)    
-
-
-    if request.method == 'GET':
-        response = requests.get ('https://api.chucknorris.io/jokes/random')
-        print('rodri'+response)'''
-        
+ 
 
 
 
 
 
 
-
-
-
-
-
-        #serializer = ChisteSerializer(chistes)
-        #return Response(serializer.data)
-
-'''elif request.method == 'PUT':
-        serializer = ChisteSerializer(chistes, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)  
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        chistes.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT) '''   
-
-
-
-
-
-#def get(self,request):
- #   response= requests.get ('https://api.chucknorris.io/jokes/random')
-       
-  #  print(response)
-       #serializer = ChisteSerializer
-       #return Response(serializer.data)
 
 
 
