@@ -14,7 +14,9 @@ from API.serializers import ChisteSerializer
 def chistes_Chuck(request, pk):
     if(pk):
         response = requests.get('https://api.chucknorris.io/jokes/random')
-        return HttpResponse(response)
+        print(response.json())
+        return Response (response.json())
+        
 
 
 
