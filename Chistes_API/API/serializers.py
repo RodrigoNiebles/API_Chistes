@@ -1,4 +1,4 @@
-from dataclasses import field, fields
+
 from rest_framework import serializers
 from API.models import Chistes
 
