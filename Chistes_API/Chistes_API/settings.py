@@ -40,8 +40,12 @@ INSTALLED_APPS = [
     'API',
     'Autenticacion',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_otp',
-    'django_otp.plugins.otp_totp'
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_hotp',
+    'django_otp.plugins.otp_static',
+    
 ]
 
 MIDDLEWARE = [
