@@ -13,12 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+"""
 from django.contrib import admin
 from django.urls import path, include
 
 
 
-from django_otp.admin import OTPAdminSite
+#from django_otp.admin import OTPAdminSite
 #admin.site.__class__ = OTPAdminSite
 
 #class OTPAdmin(OTPAdminSite):
@@ -36,5 +38,40 @@ from django_otp.admin import OTPAdminSite
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('login/', admin_site.urls),
+    path('', include('API.urls')),
+]
+"""
+
+
+
+
+
+
+from django.urls import path, include
+from django.contrib import admin
+
+from django_otp.admin import OTPAdmin, AdminSite
+
+
+
+'''
+class TestAdminSite(admin.AdminSite):
+    """test admin site."""
+
+    login_form = AdminSite.login_form
+    login_template = AdminSite.login_template
+
+    def __init__(self, *args, **kwargs):
+        """Init."""
+        super(TestAdminSite, self).__init__(*args, **kwargs)
+        self._registry = admin.site._registry.copy()
+'''
+
+OTPAdmin.enable()
+admin.site = AdminSite()
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('qr/', include("django_otp.urls")),
     path('', include('API.urls')),
 ]

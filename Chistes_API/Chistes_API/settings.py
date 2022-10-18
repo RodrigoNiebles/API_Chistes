@@ -37,14 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_otp.DjangoOTP",
     'API',
     'Autenticacion',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_otp',
-    'django_otp.plugins.otp_totp',
-    'django_otp.plugins.otp_hotp',
-    'django_otp.plugins.otp_static',
+    #'django_otp',
+    #'django_otp.plugins.otp_totp',
+    #'django_otp.plugins.otp_hotp',
+    #'django_otp.plugins.otp_static',
     
 ]
 
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_otp.middleware.OTPMiddleware',
+    #'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -90,9 +91,10 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': '127.0.0.1',
-        'DATABASE_PORT':'5432'
+        'DATABASE_PORT':'5432',
     }
 }
+
 
 
 # Password validation
@@ -134,4 +136,5 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTHENTICATION_BACKENDS = ("django_otp.backends.OTPAuthBackend", )
+#DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
